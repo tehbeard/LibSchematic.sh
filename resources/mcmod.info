@@ -1,0 +1,14 @@
+[
+{
+  "modid": "tehbeard.schematic.sh",
+  "name": "LibSchematic.sh",
+  "version": "1.0",
+  "description": "Command shell to access LibSchematic.",
+  "url":"tehbeard.com",
+  "authorList":["Tehbeard"],
+  "logoFile":"/mods/libschematic/libschematic.png",
+  "requiredMods":["tehbeard.schematic"],
+  "dependencies":["tehbeard.schematic"],
+  "useDependencyInformation":"true"
+}
+]
