@@ -1,6 +1,7 @@
 package com.tehbeard.forge.schematic.shell;
 
 
+import com.tehbeard.forge.schematic.shell.commands.SaveCommand;
 import com.tehbeard.forge.schematic.shell.commands.ViewboxCommand;
 import com.tehbeard.forge.schematic.shell.render.AABBRender;
 
@@ -33,6 +34,7 @@ public class LibSchematicShell {
     public void preServerStart(FMLServerAboutToStartEvent event){
         CommandHandler ch = ((CommandHandler)event.getServer().getCommandManager());
         ch.registerCommand(new ViewboxCommand());
+        ch.registerCommand(new SaveCommand());
     }
 
 }

@@ -22,8 +22,7 @@ public class AABBRender {
     private double playerZ;
 
 
-    //Display config
-    private boolean seeThrough = true;
+
 
     //Color
 
@@ -53,7 +52,7 @@ public class AABBRender {
 
 
 
-    public boolean active = false; 
+    public boolean active = true; 
 
 
     /**
@@ -106,10 +105,7 @@ public class AABBRender {
         GL11.glLineWidth(3.0f);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_CULL_FACE);
-
-        if (seeThrough) {
-            GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
-        }
+        GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
 
         //TODO - Render shit here
 
