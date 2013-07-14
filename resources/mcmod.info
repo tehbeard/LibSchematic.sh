@@ -9,6 +9,7 @@
   "logoFile":"/mods/libschematic/libschematic.png",
   "requiredMods":["tehbeard.schematic"],
   "dependencies":["tehbeard.schematic"],
-  "useDependencyInformation":"true"
+  "useDependencyInformation":"true",
+  "parent":"tehbeard.schematic"
 }
 ]
