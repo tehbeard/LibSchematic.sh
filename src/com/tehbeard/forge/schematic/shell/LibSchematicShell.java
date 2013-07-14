@@ -13,10 +13,12 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
+import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = "tehbeard.schematic.sh",name="LibSchematic.sh",version="1.00",useMetadata=true)
+@NetworkMod(packetHandler=ShellPacketManager.class,channels="libschematic.sh")
 public class LibSchematicShell {
     
     public static final SetSquareItem setSquareItem = new SetSquareItem(30000);

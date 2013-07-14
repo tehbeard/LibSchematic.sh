@@ -1,26 +1,17 @@
 package com.tehbeard.forge.schematic.shell.commands;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.tehbeard.forge.schematic.Blueprint;
 import com.tehbeard.forge.schematic.SchVector;
 import com.tehbeard.forge.schematic.SchematicFactory;
 import com.tehbeard.forge.schematic.SchematicFile;
 import com.tehbeard.forge.schematic.product.PasteToWorld;
-import com.tehbeard.forge.schematic.shell.LibSchematicShell;
 import com.tehbeard.forge.schematic.shell.commands.BCommand.PermLevel;
-import com.tehbeard.forge.schematic.worker.VectorOffsetWorker;
 import com.tehbeard.forge.schematic.worker.WEOffsetWorker;
-
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
-
-
 
 @BCommand(command="loadsch",level=PermLevel.none,usage="/loadsch filename")
 public class LoadCommand extends PlayerCommand {

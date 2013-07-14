@@ -1,9 +1,14 @@
 package com.tehbeard.forge.schematic.shell;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import com.tehbeard.forge.schematic.SchVector;
+import com.tehbeard.pluginChannel.Message;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.World;
 
 public class SetSquareItem extends Item {
@@ -35,25 +41,45 @@ public class SetSquareItem extends Item {
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player,
             World world, int x, int y, int z, int side, float hitX, float hitY,
             float hitZ) {
+        
         initTag(stack);
         
-        if(player.isSneaking()){
-            setPos1(stack, new SchVector(x,y,z));
-        }
-        else
-        {
-            setPos2(stack, new SchVector(x,y,z));   
-        }
+        setCoords(player.isSneaking(),new SchVector(x,y,z));
+        
+        
         // TODO Auto-generated method stub
-        System.out.println(player.isSneaking() ? "Sneak" : "no sneak");
-        System.out.println("coords? " + x + ", "+ y + ", "+ z);
-        System.out.println("Button? " + side);
-        System.out.println("click precise? " + hitX + ", "+ hitY + ", "+ hitZ);
+//        System.out.println(player.isSneaking() ? "Sneak" : "no sneak");
+//        System.out.println("coords? " + x + ", "+ y + ", "+ z);
+//        System.out.println("Button? " + side);
+//        System.out.println("click precise? " + hitX + ", "+ hitY + ", "+ hitZ);
         return true;// super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+    }
+   
+    
+    private void setCoords(boolean pos1,SchVector vector){
+        try {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(bos);
+        
+        dos.writeBoolean(pos1);
+        dos.writeInt(vector.getX());
+        dos.writeInt(vector.getY());
+        dos.writeInt(vector.getZ());
+        dos.flush();
+        Message m = new Message(bos.toByteArray(), (char)0, "setCoords", 0);
+        
+            PacketDispatcher.sendPacketToServer(new Packet250CustomPayload("libschematic.sh", m.getParts()[0]));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
 
     
+
+    
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack,
@@ -88,12 +114,12 @@ public class SetSquareItem extends Item {
         return new SchVector(stack.stackTagCompound.getCompoundTag("pos2"));
     }
     
-    private void setPos1(ItemStack stack,SchVector sch){
+    public void setPos1(ItemStack stack,SchVector sch){
         initTag(stack);
         stack.stackTagCompound.setCompoundTag("pos1", sch.asTag());
     }
     
-    private void setPos2(ItemStack stack,SchVector sch){
+    public void setPos2(ItemStack stack,SchVector sch){
         initTag(stack);
         stack.stackTagCompound.setCompoundTag("pos2", sch.asTag());
     }
