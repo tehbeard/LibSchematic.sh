@@ -85,9 +85,9 @@ public class AABBRender {
         if(active){
             ItemStack currentItem = entityPlayer.inventory.getCurrentItem();
             if(currentItem == null){return;}
-            if(currentItem.itemID == LibSchematicShell.protractor.itemID){
-                SchVector p1 = LibSchematicShell.protractor.getPos1(currentItem);
-                SchVector p2 = LibSchematicShell.protractor.getPos2(currentItem);
+            if(currentItem.itemID == LibSchematicShell.setSquareItem.itemID){
+                SchVector p1 = LibSchematicShell.setSquareItem.getPos1(currentItem);
+                SchVector p2 = LibSchematicShell.setSquareItem.getPos2(currentItem);
 
                 SchVector min = SchVector.min(p1, p2);
                 SchVector max = SchVector.max(p1, p2);

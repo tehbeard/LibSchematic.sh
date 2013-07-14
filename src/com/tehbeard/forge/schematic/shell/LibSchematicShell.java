@@ -17,13 +17,13 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @Mod(modid = "tehbeard.schematic.sh",name="LibSchematic.sh",version="1.00",useMetadata=true)
 public class LibSchematicShell {
     
-    public static final ProtractorItem protractor = new ProtractorItem(30000);
+    public static final SetSquareItem setSquareItem = new SetSquareItem(30000);
     
     public static final AABBRender render = new AABBRender();
     @EventHandler
     public void init(FMLInitializationEvent event){
-        LanguageRegistry.addName(protractor, "Protractor");
-        GameRegistry.registerItem(protractor, "protractor");
+        LanguageRegistry.addName(setSquareItem, "Protractor");
+        GameRegistry.registerItem(setSquareItem, "protractor");
         
         MinecraftForge.EVENT_BUS.register(render);
 

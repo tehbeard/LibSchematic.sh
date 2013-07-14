@@ -13,14 +13,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class ProtractorItem extends Item {
+public class SetSquareItem extends Item {
 
-    public ProtractorItem(int id) {
+    public SetSquareItem(int id) {
         super(id);
         setMaxStackSize(1);
         setCreativeTab(CreativeTabs.tabRedstone);
         setUnlocalizedName("protractor");
-        func_111206_d("tehbeard.schematic.sh:protractor");
+        func_111206_d("tehbeard.schematic.sh:setsquare");
     }
     
     @Override
