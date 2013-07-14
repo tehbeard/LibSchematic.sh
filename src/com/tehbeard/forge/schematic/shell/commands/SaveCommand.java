@@ -8,6 +8,7 @@ import java.io.IOException;
 import com.tehbeard.forge.schematic.Blueprint;
 import com.tehbeard.forge.schematic.SchVector;
 import com.tehbeard.forge.schematic.SchematicFile;
+import com.tehbeard.forge.schematic.extensions.WorldEditVectorExtension;
 import com.tehbeard.forge.schematic.shell.LibSchematicShell;
 import com.tehbeard.forge.schematic.shell.commands.BCommand.PermLevel;
 
@@ -30,11 +31,27 @@ public class SaveCommand extends PlayerCommand {
         if(currentItem.itemID == LibSchematicShell.setSquareItem.itemID){
             SchVector p1 = LibSchematicShell.setSquareItem.getPos1(currentItem);
             SchVector p2 = LibSchematicShell.setSquareItem.getPos2(currentItem);
+            
+            System.out.println("NBT tag says: " + p1 + " :: " + p2);
 
             SchematicFile file = new Blueprint(true, player.worldObj, p1, p2).createSchematicFile();
+            
+            if(astring.length > 1){
+                WorldEditVectorExtension vectors = new WorldEditVectorExtension();
+                
+                SchVector playerPos = new SchVector((int)Math.floor(player.posX),(int) Math.floor(player.posY),(int) Math.floor(player.posZ));
+                SchVector minPos = SchVector.min(p1, p2);
+                
+                vectors.setOffset(minPos.sub(playerPos));
+                file.addExtension(vectors);
+            }
+            
             //FMLCommonHandler.instance().getMinecraftServerInstance().getFile(par1Str)
             try {
                 file.saveSchematic(new FileOutputStream(new File("./sch/" + astring[0] + ".schematic")));
+                
+                
+                
                 player.addChatMessage("Saved to " + astring[0] + ".schematic");
                 return;
             } catch (FileNotFoundException e) {
