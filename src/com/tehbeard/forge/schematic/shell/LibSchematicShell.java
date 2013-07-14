@@ -22,8 +22,8 @@ public class LibSchematicShell {
     public static final AABBRender render = new AABBRender();
     @EventHandler
     public void init(FMLInitializationEvent event){
-        LanguageRegistry.addName(setSquareItem, "Protractor");
-        GameRegistry.registerItem(setSquareItem, "protractor");
+        LanguageRegistry.addName(setSquareItem, "SetSquare");
+        GameRegistry.registerItem(setSquareItem, "SetSquare");
         
         MinecraftForge.EVENT_BUS.register(render);
 
