@@ -34,7 +34,7 @@ public class SaveCommand extends PlayerCommand {
             
             System.out.println("NBT tag says: " + p1 + " :: " + p2);
 
-            SchematicFile file = new Blueprint(true, player.worldObj, p1, p2).createSchematicFile();
+            SchematicFile file = new Blueprint(false, player.worldObj, p1, p2).createSchematicFile();
             
             if(astring.length > 1){
                 WorldEditVectorExtension vectors = new WorldEditVectorExtension();
