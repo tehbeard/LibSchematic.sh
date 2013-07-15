@@ -17,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
 public class SetSquareItem extends Item {
@@ -88,10 +89,11 @@ public class SetSquareItem extends Item {
         SchVector pos1 = getPos1(itemStack);
         SchVector pos2 = getPos2(itemStack);
         SchVector size = new SchVector(SchVector.max(pos1, pos2)).sub(SchVector.min(pos1, pos2).sub(new SchVector(1,1,1)));
-        infoList.add("§cPos 1 : " + pos1);
-        infoList.add("§9Pos 2 : " + pos2);
-        infoList.add("§5Size   : " + size);
-        infoList.add("§5Area   : " + size.area());
+        
+        infoList.add(EnumChatFormatting.RED          + "Pos 1 : " + pos1);
+        infoList.add(EnumChatFormatting.BLUE         + "Pos 2 : " + pos2);
+        infoList.add(EnumChatFormatting.LIGHT_PURPLE + "Size   : " + size);
+        infoList.add(EnumChatFormatting.LIGHT_PURPLE + "Area   : " + size.area());
         
         
     }
