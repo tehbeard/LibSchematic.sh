@@ -12,12 +12,9 @@ import com.tehbeard.forge.schematic.extensions.WorldEditVectorExtension;
 import com.tehbeard.forge.schematic.shell.LibSchematicShell;
 import com.tehbeard.forge.schematic.shell.commands.BCommand.PermLevel;
 
-
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-
-
 
 @BCommand(command="savesch",level=PermLevel.none,usage="/savesch filename")
 public class SaveCommand extends PlayerCommand {
@@ -34,7 +31,7 @@ public class SaveCommand extends PlayerCommand {
             
             System.out.println("NBT tag says: " + p1 + " :: " + p2);
 
-            SchematicFile file = new Blueprint(false, player.worldObj, p1, p2).createSchematicFile();
+            SchematicFile file = new Blueprint(player.worldObj, p1, p2).setIgnoreEntityData(false).createSchematicFile();
             
             if(astring.length > 1){
                 WorldEditVectorExtension vectors = new WorldEditVectorExtension();
