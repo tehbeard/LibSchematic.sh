@@ -1,44 +1,41 @@
 package com.tehbeard.forge.schematic.shell;
 
-
-import com.tehbeard.forge.schematic.shell.commands.LoadCommand;
-import com.tehbeard.forge.schematic.shell.commands.SaveCommand;
-import com.tehbeard.forge.schematic.shell.commands.ViewboxCommand;
-import com.tehbeard.forge.schematic.shell.render.AABBRender;
-
-
 import net.minecraft.command.CommandHandler;
-import net.minecraftforge.common.MinecraftForge;
+
+import com.tehbeard.forge.schematic.shell.items.SetSquareItem;
+import com.tehbeard.forge.schematic.shell.network.ShellPacketManager;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "tehbeard.schematic.sh",name="LibSchematic.sh",version="1.00",useMetadata=true)
-@NetworkMod(packetHandler=ShellPacketManager.class,channels="libschematic.sh")
+@Mod(modid = Reference.MODID,name="LibSchematic",version=Reference.VERSION,useMetadata=true)
+@NetworkMod(packetHandler=ShellPacketManager.class,channels=Reference.BASE_CHANNEL)
 public class LibSchematicShell {
+    
+    @SidedProxy(serverSide="com.tehbeard.forge.schematic.shell.CommonProxy",clientSide="com.tehbeard.forge.schematic.shell.ClientProxy")
+    public static CommonProxy proxy;
+    
     
     public static final SetSquareItem setSquareItem = new SetSquareItem(30000);
     
-    public static final AABBRender render = new AABBRender();
+    //public static final 
     @EventHandler
     public void init(FMLInitializationEvent event){
-        LanguageRegistry.addName(setSquareItem, "SetSquare");
-        GameRegistry.registerItem(setSquareItem, "SetSquare");
         
-        MinecraftForge.EVENT_BUS.register(render);
+        proxy.registerItems();
+        
+        proxy.registerGUI();
+        
 
     }
     
     @EventHandler
     public void preServerStart(FMLServerAboutToStartEvent event){
-        CommandHandler ch = ((CommandHandler)event.getServer().getCommandManager());
-        ch.registerCommand(new ViewboxCommand());
-        ch.registerCommand(new SaveCommand());
-        ch.registerCommand(new LoadCommand());
+        proxy.registerCommands(((CommandHandler)event.getServer().getCommandManager()));
     }
 
 }

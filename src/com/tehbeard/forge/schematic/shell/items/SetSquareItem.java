@@ -1,11 +1,13 @@
-package com.tehbeard.forge.schematic.shell;
+package com.tehbeard.forge.schematic.shell.items;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.tehbeard.forge.schematic.SchVector;
+import com.tehbeard.forge.schematic.shell.Reference;
 import com.tehbeard.pluginChannel.Message;
 
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -46,13 +48,12 @@ public class SetSquareItem extends Item {
         initTag(stack);
         
         setCoords(player.isSneaking(),new SchVector(x,y,z));
+        List<String> l = new ArrayList<String>();
+        genList(stack,l);
         
-        
-        // TODO Auto-generated method stub
-//        System.out.println(player.isSneaking() ? "Sneak" : "no sneak");
-//        System.out.println("coords? " + x + ", "+ y + ", "+ z);
-//        System.out.println("Button? " + side);
-//        System.out.println("click precise? " + hitX + ", "+ hitY + ", "+ hitZ);
+        player.addChatMessage(l.get(2));
+        player.addChatMessage(l.get(3));
+
         return true;// super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
     }
    
@@ -67,9 +68,11 @@ public class SetSquareItem extends Item {
         dos.writeInt(vector.getY());
         dos.writeInt(vector.getZ());
         dos.flush();
-        Message m = new Message(bos.toByteArray(), (char)0, "setCoords", 0);
+        Message m = new Message(bos.toByteArray(), (char)0, Reference.SUB_CHANNEL, 0);
         
-            PacketDispatcher.sendPacketToServer(new Packet250CustomPayload("libschematic.sh", m.getParts()[0]));
+            PacketDispatcher.sendPacketToServer(new Packet250CustomPayload(Reference.BASE_CHANNEL, m.getParts()[0]));
+            
+            
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -86,18 +89,23 @@ public class SetSquareItem extends Item {
     public void addInformation(ItemStack itemStack,
             EntityPlayer player, List infoList, boolean unknown) {
         super.addInformation(itemStack, player, infoList, unknown);
+        
+        genList(itemStack,infoList);
+        
+    }
+    
+    private void genList(ItemStack itemStack, List infoList) {
         SchVector pos1 = getPos1(itemStack);
         SchVector pos2 = getPos2(itemStack);
         SchVector size = new SchVector(SchVector.max(pos1, pos2)).sub(SchVector.min(pos1, pos2).sub(new SchVector(1,1,1)));
         
         infoList.add(EnumChatFormatting.RED          + "Pos 1 : " + pos1);
         infoList.add(EnumChatFormatting.BLUE         + "Pos 2 : " + pos2);
-        infoList.add(EnumChatFormatting.LIGHT_PURPLE + "Size   : " + size);
-        infoList.add(EnumChatFormatting.LIGHT_PURPLE + "Area   : " + size.area());
-        
+        infoList.add(EnumChatFormatting.LIGHT_PURPLE + "Size : " + size);
+        infoList.add(EnumChatFormatting.LIGHT_PURPLE + "Area : " + size.area());
         
     }
-    
+
     private void initTag(ItemStack stack){
         if(stack.stackTagCompound==null){
         stack.stackTagCompound = new NBTTagCompound();

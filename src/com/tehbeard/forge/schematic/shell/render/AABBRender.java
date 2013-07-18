@@ -52,7 +52,7 @@ public class AABBRender {
 
 
 
-    public boolean active = true; 
+    //public boolean active = true; 
 
 
     /**
@@ -81,20 +81,20 @@ public class AABBRender {
         playerY = entityPlayer.lastTickPosY + (entityPlayer.posY - entityPlayer.lastTickPosY) * (double) event.partialTicks;
         playerZ = entityPlayer.lastTickPosZ + (entityPlayer.posZ - entityPlayer.lastTickPosZ) * (double) event.partialTicks;
 
-        if(active){
-            ItemStack currentItem = entityPlayer.inventory.getCurrentItem();
-            if(currentItem == null){return;}
-            if(currentItem.itemID == LibSchematicShell.setSquareItem.itemID){
-                SchVector p1 = LibSchematicShell.setSquareItem.getPos1(currentItem);
-                SchVector p2 = LibSchematicShell.setSquareItem.getPos2(currentItem);
 
-                SchVector min = SchVector.min(p1, p2);
-                SchVector max = SchVector.max(p1, p2);
+        ItemStack currentItem = entityPlayer.inventory.getCurrentItem();
+        if(currentItem == null){return;}
+        if(currentItem.itemID == LibSchematicShell.setSquareItem.itemID){
+            SchVector p1 = LibSchematicShell.setSquareItem.getPos1(currentItem);
+            SchVector p2 = LibSchematicShell.setSquareItem.getPos2(currentItem);
 
-                renderSelection(new BBoxInt(min, max),area,true);
-                renderSelection(new BBoxInt(min, min),corner1,false);
-                renderSelection(new BBoxInt(max, max),corner2,false);
-            }
+            SchVector min = SchVector.min(p1, p2);
+            SchVector max = SchVector.max(p1, p2);
+
+            renderSelection(new BBoxInt(min, max),area,true);
+            renderSelection(new BBoxInt(min, min),corner1,false);
+            renderSelection(new BBoxInt(max, max),corner2,false);
+
         }
     }
 

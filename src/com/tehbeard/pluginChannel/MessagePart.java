@@ -83,10 +83,6 @@ public class MessagePart {
 		return options;
 	}
 	
-	public char getType() {
-		return (char) (options & 0x1F);
-	}
-	
 	public boolean getOption(char option){
 		return (options ^ option) < options;
 	}

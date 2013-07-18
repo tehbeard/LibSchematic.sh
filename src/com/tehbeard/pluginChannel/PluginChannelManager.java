@@ -5,37 +5,30 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
-
-import cpw.mods.fml.common.network.IPacketHandler;
-import cpw.mods.fml.common.network.Player;
-
 public class PluginChannelManager {
 
 
 	/**
 	 * Holds list of partially processed messages
+	 * subchannel -> message part id -> Message body
 	 */
 	private Map<String,Map<Integer,Message>> messages = new HashMap<String, Map<Integer,Message>>();
 
-	/**
-	 * Holds oneshot reply listeners
-	 */
-	private Map<Integer,MessageReader> onReply = new HashMap<Integer, MessageReader>();
-
-	
 	/**
 	 * Sub channel listeners
 	 */
 	private Map<String,MessageReader> listeners = new HashMap<String, MessageReader>();
 
 
-
-    //private Logger logger;
+	
+	private boolean strictMode;
+	
+	public PluginChannelManager(){
+	    this(true);
+	}
     
-    public PluginChannelManager(Logger logger){
-        //this.logger = logger;
+    public PluginChannelManager(boolean strictMode){
+        this.strictMode = strictMode;
     }
 
 	/**
@@ -58,6 +51,9 @@ public class PluginChannelManager {
 
 			//Create subchannel box if needed
 			if(!messages.containsKey(part.getSubchannel())){
+			    if(strictMode && !listeners.containsKey(part.getSubchannel())){
+			        return;
+			    }
 				messages.put(part.getSubchannel(),new HashMap<Integer, Message>());
 				System.out.println("Creating new sub channel box");
 			}
@@ -79,17 +75,17 @@ public class PluginChannelManager {
 
 			//process message
 			if(message.isDone()){
-			    System.out.println("Message complete, processing");
+			    
 				messages.get(part.getSubchannel()).remove(part.getMsgId());
 				MessageReader reader = listeners.get(message.getSubchannel());
 				if(reader!=null){
-				    System.out.println("Passing to handler");
+				    
 					reader.onMessage(channel, player,message);
 					
 				}
 				else
 				{
-				    System.out.println("No handler found!");
+				    
 					//logger.info("Message for subchannel "  + message.getSubchannel() + " dropped due to lack of listener.");
 				}
 

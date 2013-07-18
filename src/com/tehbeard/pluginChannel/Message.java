@@ -15,16 +15,26 @@ import java.util.Arrays;
  */
 public class Message {
 	
+    //Protocol version, not used?
 	public static final char PROTOCOL_VERSION = 1;
 
+	//chunks of the message
 	public MessagePart[] messageParts;
 
+	//Have we got all the parts?
 	private boolean isDone = false;
 
+	//Raw data body
 	private byte[] rawData;
+	
+	
+	//options
+	private char options;
 
+	//Sub channel name
 	private String subchannel = null;
 
+	//Maximum size of a chunk of the data body
 	private final static int MAX_CHUNK = 16384;
 	
 	private static int nextMsgId = 0;
@@ -36,13 +46,7 @@ public class Message {
 		rawData = data;
 		
 		InputStream is = new ByteArrayInputStream(data);
-		
-
-		
 		char totalMsgs = (char) Math.ceil(((double)data.length) / MAX_CHUNK);
-		
-		
-	
 		
 		messageParts = new MessagePart[totalMsgs];
 		
@@ -113,6 +117,7 @@ public class Message {
 		InputStream is = new ByteArrayInputStream(concatenatedRawData.toByteArray());
 		//if gzipped, wrap in GZIPInputStream
 		
+		options = messageParts[0].getOptions();
 		isDone = true;
 		rawData = drainStreamIntoByteArray(is);
 	}
@@ -204,5 +209,13 @@ public class Message {
 	    return new DataInputStream(new ByteArrayInputStream(getRawData()));
 	}
 	
+	
+	public char getOptions() {
+        return options;
+    }
+    
+    public boolean getOption(char option){
+        return (options ^ option) < options;
+    }
 	
 }
