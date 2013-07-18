@@ -3,7 +3,6 @@ package com.tehbeard.pluginChannel;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class PluginChannelManager {
 
