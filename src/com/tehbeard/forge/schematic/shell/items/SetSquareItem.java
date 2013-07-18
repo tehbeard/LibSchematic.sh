@@ -83,7 +83,7 @@ public class SetSquareItem extends Item {
     
 
     
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack,
@@ -94,7 +94,7 @@ public class SetSquareItem extends Item {
         
     }
     
-    private void genList(ItemStack itemStack, List infoList) {
+    private void genList(ItemStack itemStack, List<String> infoList) {
         SchVector pos1 = getPos1(itemStack);
         SchVector pos2 = getPos2(itemStack);
         SchVector size = new SchVector(SchVector.max(pos1, pos2)).sub(SchVector.min(pos1, pos2).sub(new SchVector(1,1,1)));
