@@ -24,10 +24,8 @@ public class LoadCommand extends PlayerCommand {
         
         try {
             SchematicFile file = new SchematicFile(new File("./sch/" + astring[0] + ".schematic"));
-            
             PasteToWorld paste = new PasteToWorld(player.worldObj);
             paste.setWorldVec(new SchVector((int)Math.floor(player.posX),(int) Math.floor(player.posY),(int) Math.floor(player.posZ)));
-            
             SchematicFactory factory = new SchematicFactory().loadWorkers(new WEOffsetWorker(),new IdTranslateWorker());
             
             ArgumentPack arguments = new ArgumentPack(new String[]{}, new String[]{"rotate"}, astring);
