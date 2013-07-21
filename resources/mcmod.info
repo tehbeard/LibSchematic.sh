@@ -7,9 +7,9 @@
   "url":"tehbeard.com",
   "authorList":["Tehbeard"],
   "logoFile":"/mods/libschematic/libschematic.png",
-  "requiredMods":["tehbeard.schematic"],
-  "dependencies":["tehbeard.schematic"],
+  "requiredMods":["libschematic"],
+  "dependencies":["libschematic"],
   "useDependencyInformation":"true",
-  "parent":"tehbeard.schematic"
+  "parent":"libschematic"
 }
 ]

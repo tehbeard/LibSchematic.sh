@@ -116,6 +116,7 @@ public class ArgumentPack {
 
     private boolean inArray(String[] arr,String search){
         for(String a : arr){
+            if(a == null){continue;}
             if(a.equalsIgnoreCase(search)){
                 return true;
             }

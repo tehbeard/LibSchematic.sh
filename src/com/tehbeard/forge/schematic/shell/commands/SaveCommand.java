@@ -8,6 +8,7 @@ import java.io.IOException;
 import com.tehbeard.forge.schematic.Blueprint;
 import com.tehbeard.forge.schematic.SchVector;
 import com.tehbeard.forge.schematic.SchematicFile;
+import com.tehbeard.forge.schematic.extensions.IdTranslateExtension;
 import com.tehbeard.forge.schematic.extensions.WorldEditVectorExtension;
 import com.tehbeard.forge.schematic.shell.LibSchematicShell;
 import com.tehbeard.forge.schematic.shell.commands.BCommand.PermLevel;
@@ -40,7 +41,7 @@ public class SaveCommand extends PlayerCommand {
             blueprint.setIgnoreTileEntityData(arguments.getFlag("notile"));
             blueprint.setIgnoreEntityData(arguments.getFlag("noentity"));
             
-            SchematicFile file = blueprint.createSchematicFile();
+            SchematicFile schematic = blueprint.createSchematicFile();
                     
             //Save Relative offset
             if(arguments.getFlag("rel")){
@@ -48,14 +49,19 @@ public class SaveCommand extends PlayerCommand {
                 SchVector playerPos = new SchVector((int)Math.floor(player.posX),(int) Math.floor(player.posY),(int) Math.floor(player.posZ));
                 SchVector minPos = SchVector.min(p1, p2);
                 vectors.setOffset(minPos.sub(playerPos));
-                file.addExtension(vectors);
+                schematic.addExtension(vectors);
             }
 
             //FMLCommonHandler.instance().getMinecraftServerInstance().getFile(par1Str)
             try {
+                new File("./sch/").mkdir();
                 File f = new File("./sch/" + arguments.get(0) + ".schematic");
-                f.mkdirs();
-                file.saveSchematic(new FileOutputStream(f));
+                
+                
+                IdTranslateExtension translate = new IdTranslateExtension();
+                translate.generateFromGameData();
+                schematic.addExtension(translate);
+                schematic.saveSchematic(new FileOutputStream(f));
 
 
 
