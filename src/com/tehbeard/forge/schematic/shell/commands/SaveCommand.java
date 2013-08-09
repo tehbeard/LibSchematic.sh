@@ -68,10 +68,10 @@ public class SaveCommand extends PlayerCommand {
                 player.addChatMessage("Saved to " + arguments.get(0) + ".schematic");
                 return;
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
+                player.addChatMessage("Could not save to that file");
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
+                player.addChatMessage("An error occured writing to that file");
                 e.printStackTrace();
             }
         }

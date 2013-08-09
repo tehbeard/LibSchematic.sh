@@ -74,7 +74,6 @@ public class SetSquareItem extends Item {
             
             
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -138,8 +137,7 @@ public class SetSquareItem extends Item {
     
     @Override
     public boolean canItemEditBlocks() {
-        // TODO Auto-generated method stub
-        return false;//super.canItemEditBlocks();
+        return false;
     }
 
     

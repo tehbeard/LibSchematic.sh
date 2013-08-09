@@ -38,7 +38,7 @@ public class LoadCommand extends PlayerCommand {
             factory.loadSchematic(file).produce(paste);
             
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            player.addChatMessage("Could not read file");
             e.printStackTrace();
         }
     }

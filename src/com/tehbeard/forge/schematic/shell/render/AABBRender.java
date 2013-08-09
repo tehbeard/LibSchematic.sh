@@ -107,9 +107,6 @@ public class AABBRender {
         GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
 
-        //TODO - Render shit here
-
-
         AxisAlignedBB aabb = getRenderBoundingBox(bBoxInt);
         //Render fill
         if(fill){
