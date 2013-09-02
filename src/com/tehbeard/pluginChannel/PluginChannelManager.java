@@ -3,6 +3,7 @@ package com.tehbeard.pluginChannel;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class PluginChannelManager {
 
@@ -22,12 +23,15 @@ public class PluginChannelManager {
 	
 	private boolean strictMode;
 	
-	public PluginChannelManager(){
-	    this(true);
+	private final Logger logger;
+	
+	public PluginChannelManager(Logger logger){
+	    this(true,logger);
 	}
     
-    public PluginChannelManager(boolean strictMode){
+    public PluginChannelManager(boolean strictMode,Logger logger){
         this.strictMode = strictMode;
+        this.logger = logger;
     }
 
 	/**
@@ -44,7 +48,7 @@ public class PluginChannelManager {
 
 	public void onPluginMessageReceived(String channel, Object player, byte[] data) {
 		try {
-		    System.out.println("Processing message");
+		    logger.fine("Processing message");
 			//Get the message
 			MessagePart part = new MessagePart(data);
 
@@ -54,13 +58,13 @@ public class PluginChannelManager {
 			        return;
 			    }
 				messages.put(part.getSubchannel(),new HashMap<Integer, Message>());
-				System.out.println("Creating new sub channel box");
+				logger.fine("Creating new subchannel [" + part.getSubchannel() + "]");
 			}
 
 			//Create new message or add to existing message
 			if(!messages.get(part.getSubchannel()).containsKey(part.getMsgId())){
 				messages.get(part.getSubchannel()).put(part.getMsgId(), new Message(part));
-				System.out.println("Creating new  message box");
+				logger.fine("New message, creating container for msg " + part.getMsgId());
 			}
 			else
 			{

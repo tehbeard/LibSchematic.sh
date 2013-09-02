@@ -1,6 +1,7 @@
 package com.tehbeard.forge.schematic.shell.network;
 
 import java.io.DataInputStream;
+import java.util.logging.Logger;
 
 import com.tehbeard.forge.schematic.SchVector;
 import com.tehbeard.forge.schematic.shell.LibSchematicShell;
@@ -19,7 +20,7 @@ import cpw.mods.fml.common.network.Player;
 public class ShellPacketManager extends PluginChannelManager implements IPacketHandler {
 
     public ShellPacketManager() {
-        super();
+        super(Logger.getLogger("minecraft"));
 
         addSubchannelListener(Reference.SUB_CHANNEL, new MessageReader() {
 
@@ -36,7 +37,6 @@ public class ShellPacketManager extends PluginChannelManager implements IPacketH
                             stream.readInt(),
                             stream.readInt()
                             );
-                    System.out.println("Coords recieved!");
                     ItemStack currentItem = entityPlayer.inventory.getCurrentItem();
                     if(currentItem == null){return;}
                     if(currentItem.itemID != LibSchematicShell.setSquareItem.itemID){return;}
