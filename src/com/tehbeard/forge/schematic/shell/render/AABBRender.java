@@ -14,7 +14,11 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 
-
+/**
+ * Render a box in world
+ * @author James
+ *
+ */
 public class AABBRender {
 
     private double playerX;

@@ -27,9 +27,8 @@ public class SetSquareItem extends Item {
     public SetSquareItem(int id) {
         super(id);
         setMaxStackSize(1);
-        setCreativeTab(CreativeTabs.tabRedstone);
         setUnlocalizedName("protractor");
-        func_111206_d("tehbeard.schematic.sh:setsquare");
+        setTextureName("tehbeard.schematic.sh:setsquare");
     }
     
     @Override
