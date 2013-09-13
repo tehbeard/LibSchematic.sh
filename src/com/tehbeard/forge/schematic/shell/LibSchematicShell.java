@@ -14,7 +14,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid = Reference.MODID,name="LibSchematic",version=Reference.VERSION,useMetadata=true)
+@Mod(modid = Reference.MODID,name="LibSchematic.sh",version=Reference.VERSION,useMetadata=true)
 @NetworkMod(packetHandler=ShellPacketManager.class,channels=Reference.BASE_CHANNEL)
 public class LibSchematicShell {
     

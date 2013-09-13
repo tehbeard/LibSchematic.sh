@@ -10,6 +10,5 @@
   "requiredMods":["libschematic"],
   "dependencies":["libschematic"],
   "useDependencyInformation":"true",
-  "parent":"libschematic"
 }
 ]
