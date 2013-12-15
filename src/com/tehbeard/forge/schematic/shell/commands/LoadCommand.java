@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.IOException;
 
 import com.tehbeard.forge.schematic.SchVector;
-import com.tehbeard.forge.schematic.SchematicFactory;
 import com.tehbeard.forge.schematic.SchematicFile;
-import com.tehbeard.forge.schematic.product.PasteToWorld;
+import com.tehbeard.forge.schematic.factory.SchematicFactory;
+import com.tehbeard.forge.schematic.factory.product.PasteToWorld;
+import com.tehbeard.forge.schematic.factory.worker.blocks.IdTranslateWorker;
+import com.tehbeard.forge.schematic.factory.worker.worldedit.WEOffsetWorker;
 import com.tehbeard.forge.schematic.shell.commands.BCommand.PermLevel;
-import com.tehbeard.forge.schematic.worker.IdTranslateWorker;
-import com.tehbeard.forge.schematic.worker.WEOffsetWorker;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
