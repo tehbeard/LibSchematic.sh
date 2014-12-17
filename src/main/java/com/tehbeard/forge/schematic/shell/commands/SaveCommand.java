@@ -8,7 +8,7 @@ import java.io.IOException;
 import com.tehbeard.forge.schematic.Blueprint;
 import com.tehbeard.forge.schematic.SchVector;
 import com.tehbeard.forge.schematic.SchematicFile;
-import com.tehbeard.forge.schematic.extensions.IdTranslateExtension;
+import com.tehbeard.forge.schematic.extensions.id.IdTranslateExtension;
 import com.tehbeard.forge.schematic.extensions.WorldEditVectorExtension;
 import com.tehbeard.forge.schematic.shell.LibSchematicShell;
 import com.tehbeard.forge.schematic.shell.commands.BCommand.PermLevel;
@@ -79,4 +79,8 @@ public class SaveCommand extends PlayerCommand {
         player.addChatMessage("No SetSquare in hand!");
     }
 
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
 }

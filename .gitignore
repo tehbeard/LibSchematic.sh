@@ -3,6 +3,10 @@ bin
 doc
 .settings
 target
+.idea/
+*.iml
+gradle
+gradlew*
 .project
 .classpath
 *.schematic

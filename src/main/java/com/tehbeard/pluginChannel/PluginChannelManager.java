@@ -1,5 +1,7 @@
 package com.tehbeard.pluginChannel;
 
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +39,7 @@ public class PluginChannelManager {
 	/**
 	 * Add a subchannel listener.
 	 * Sub channel listeners respond to all messages on a sub channel
-	 * Sub channels 
+	 * Sub channels
 	 * @param subchannel
 	 * @param reader
 	 */
@@ -82,9 +84,9 @@ public class PluginChannelManager {
 				messages.get(part.getSubchannel()).remove(part.getMsgId());
 				MessageReader reader = listeners.get(message.getSubchannel());
 				if(reader!=null){
-				    
+
 					reader.onMessage(channel, player,message);
-					
+
 				}
 				else
 				{

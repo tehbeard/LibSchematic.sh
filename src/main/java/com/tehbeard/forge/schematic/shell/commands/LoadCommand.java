@@ -2,17 +2,22 @@ package com.tehbeard.forge.schematic.shell.commands;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 import com.tehbeard.forge.schematic.SchVector;
 import com.tehbeard.forge.schematic.SchematicFile;
 import com.tehbeard.forge.schematic.factory.SchematicFactory;
-import com.tehbeard.forge.schematic.factory.product.PasteToWorld;
+import com.tehbeard.forge.schematic.factory.output.PasteToWorld;
 import com.tehbeard.forge.schematic.factory.worker.blocks.IdTranslateWorker;
 import com.tehbeard.forge.schematic.factory.worker.worldedit.WEOffsetWorker;
 import com.tehbeard.forge.schematic.shell.commands.BCommand.PermLevel;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.ChatStyle;
+import net.minecraft.util.IChatComponent;
+import uk.co.cynicode.handlers.PluginInfoMessage;
 
 @BCommand(command="loadsch",level=PermLevel.none,usage="/loadsch filename")
 public class LoadCommand extends PlayerCommand {
@@ -41,6 +46,11 @@ public class LoadCommand extends PlayerCommand {
             player.addChatMessage("Could not read file");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 
 }

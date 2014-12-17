@@ -13,6 +13,7 @@ import com.tehbeard.pluginChannel.PluginChannelManager;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
+import net.minecraft.network.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;

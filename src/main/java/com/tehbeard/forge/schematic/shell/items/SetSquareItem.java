@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tehbeard.forge.schematic.SchVector;
+import com.tehbeard.forge.schematic.shell.LibSchematicShell;
 import com.tehbeard.forge.schematic.shell.Reference;
 import com.tehbeard.pluginChannel.Message;
 
@@ -18,8 +19,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
+import uk.co.cynicode.handlers.PluginInfoMessage;
 
 public class SetSquareItem extends Item {
 
@@ -60,14 +63,14 @@ public class SetSquareItem extends Item {
         try {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(bos);
-        
+
         dos.writeBoolean(pos1);
         dos.writeInt(vector.getX());
         dos.writeInt(vector.getY());
         dos.writeInt(vector.getZ());
         dos.flush();
         Message m = new Message(bos.toByteArray(), (char)0, Reference.SUB_CHANNEL, 0);
-        
+
             PacketDispatcher.sendPacketToServer(new Packet250CustomPayload(Reference.BASE_CHANNEL, m.getParts()[0]));
             
             
