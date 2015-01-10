@@ -18,6 +18,9 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
+/**
+ * TODO: DO WE NEED THIS CLASS?
+ */
 public class ShellPacketManager extends PluginChannelManager implements IPacketHandler {
 
     public ShellPacketManager() {

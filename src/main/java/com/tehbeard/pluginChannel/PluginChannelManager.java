@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+/**
+ * TODO: Do we need this class?
+ */
 public class PluginChannelManager {
 
 

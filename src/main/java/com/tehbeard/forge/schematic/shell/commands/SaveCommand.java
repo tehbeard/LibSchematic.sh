@@ -16,6 +16,7 @@ import com.tehbeard.forge.schematic.shell.commands.BCommand.PermLevel;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
 
 @BCommand(command="savesch",level=PermLevel.none,usage="/savesch filename")
 public class SaveCommand extends PlayerCommand {
@@ -26,7 +27,7 @@ public class SaveCommand extends PlayerCommand {
         EntityPlayerMP player = getCommandSenderAsPlayer(icommandsender);
         ItemStack currentItem = player.inventory.getCurrentItem();
         if(currentItem == null){return;}
-        if(currentItem.itemID == LibSchematicShell.setSquareItem.itemID){
+        if(currentItem.isItemEqual(new ItemStack(LibSchematicShell.setSquareItem))){
             SchVector p1 = LibSchematicShell.setSquareItem.getPos1(currentItem);
             SchVector p2 = LibSchematicShell.setSquareItem.getPos2(currentItem);
 
@@ -59,24 +60,32 @@ public class SaveCommand extends PlayerCommand {
                 
                 
                 IdTranslateExtension translate = new IdTranslateExtension();
-                translate.generateFromGameData();
+                translate.redoCache();
                 schematic.addExtension(translate);
                 schematic.saveSchematic(new FileOutputStream(f));
 
 
 
-                player.addChatMessage("Saved to " + arguments.get(0) + ".schematic");
+                player.addChatMessage(new ChatComponentText(
+                        "Saved to " + arguments.get(0) + ".schematic"
+                ));
                 return;
             } catch (FileNotFoundException e) {
-                player.addChatMessage("Could not save to that file");
+                player.addChatMessage(new ChatComponentText(
+                        "Could not save to that file"
+                ));
                 e.printStackTrace();
             } catch (IOException e) {
-                player.addChatMessage("An error occured writing to that file");
+                player.addChatMessage(new ChatComponentText(
+                        "An error occured writing to that file"
+                ));
                 e.printStackTrace();
             }
         }
 
-        player.addChatMessage("No SetSquare in hand!");
+        player.addChatMessage(new ChatComponentText(
+                "No SetSquare in hand!"
+        ));
     }
 
     @Override

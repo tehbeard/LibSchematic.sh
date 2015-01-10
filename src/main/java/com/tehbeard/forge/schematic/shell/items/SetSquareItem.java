@@ -7,30 +7,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tehbeard.forge.schematic.SchVector;
-import com.tehbeard.forge.schematic.shell.LibSchematicShell;
 import com.tehbeard.forge.schematic.shell.Reference;
 import com.tehbeard.pluginChannel.Message;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
+import com.tehbeard.pluginChannel.netty.PacketHandler;
+import com.tehbeard.pluginChannel.netty.SchemPacket;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.network.play.server.S3FPacketCustomPayload;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
-import uk.co.cynicode.handlers.PluginInfoMessage;
 
 public class SetSquareItem extends Item {
 
-    public SetSquareItem(int id) {
-        super(id);
+    public SetSquareItem() {
+        super();
         setMaxStackSize(1);
-        setUnlocalizedName("protractor");
-        setTextureName("tehbeard.schematic.sh:setsquare");
     }
     
     @Override
@@ -52,8 +49,8 @@ public class SetSquareItem extends Item {
         List<String> l = new ArrayList<String>();
         genList(stack,l);
         
-        player.addChatMessage(l.get(2));
-        player.addChatMessage(l.get(3));
+        player.addChatMessage(new ChatComponentText(l.get(2)));
+        player.addChatMessage(new ChatComponentText(l.get(3)));
 
         return true;// super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
     }
@@ -61,18 +58,18 @@ public class SetSquareItem extends Item {
     
     private void setCoords(boolean pos1,SchVector vector){
         try {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        DataOutputStream dos = new DataOutputStream(bos);
 
-        dos.writeBoolean(pos1);
-        dos.writeInt(vector.getX());
-        dos.writeInt(vector.getY());
-        dos.writeInt(vector.getZ());
-        dos.flush();
-        Message m = new Message(bos.toByteArray(), (char)0, Reference.SUB_CHANNEL, 0);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            DataOutputStream dos = new DataOutputStream(bos);
 
-            PacketDispatcher.sendPacketToServer(new Packet250CustomPayload(Reference.BASE_CHANNEL, m.getParts()[0]));
-            
+            dos.writeBoolean(pos1);
+            dos.writeInt(vector.getX());
+            dos.writeInt(vector.getY());
+            dos.writeInt(vector.getZ());
+            dos.flush();
+            Message m = new Message(bos.toByteArray(), (char)0, Reference.SUB_CHANNEL, 0);
+
+            PacketHandler.network.sendToServer(new SchemPacket.SchemMessage(m.getParts()[0]));
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,9 +105,9 @@ public class SetSquareItem extends Item {
 
     private void initTag(ItemStack stack){
         if(stack.stackTagCompound==null){
-        stack.stackTagCompound = new NBTTagCompound();
-        stack.stackTagCompound.setCompoundTag("pos1", new SchVector().asTag());
-        stack.stackTagCompound.setCompoundTag("pos2", new SchVector().asTag());
+            stack.stackTagCompound = new NBTTagCompound();
+            stack.stackTagCompound.setTag("pos1", new SchVector().asTag());
+            stack.stackTagCompound.setTag("pos2", new SchVector().asTag());
         }
     }
     
@@ -126,12 +123,12 @@ public class SetSquareItem extends Item {
     
     public void setPos1(ItemStack stack,SchVector sch){
         initTag(stack);
-        stack.stackTagCompound.setCompoundTag("pos1", sch.asTag());
+        stack.stackTagCompound.setTag("pos1", sch.asTag());
     }
     
     public void setPos2(ItemStack stack,SchVector sch){
         initTag(stack);
-        stack.stackTagCompound.setCompoundTag("pos2", sch.asTag());
+        stack.stackTagCompound.setTag("pos2", sch.asTag());
     }
     
     

@@ -2,8 +2,6 @@ package com.tehbeard.forge.schematic.shell.commands;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 
 import com.tehbeard.forge.schematic.SchVector;
 import com.tehbeard.forge.schematic.SchematicFile;
@@ -15,9 +13,7 @@ import com.tehbeard.forge.schematic.shell.commands.BCommand.PermLevel;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.IChatComponent;
-import uk.co.cynicode.handlers.PluginInfoMessage;
+import net.minecraft.util.ChatComponentText;
 
 @BCommand(command="loadsch",level=PermLevel.none,usage="/loadsch filename")
 public class LoadCommand extends PlayerCommand {
@@ -43,7 +39,7 @@ public class LoadCommand extends PlayerCommand {
             factory.loadSchematic(file).produce(paste);
             
         } catch (IOException e) {
-            player.addChatMessage("Could not read file");
+            player.addChatMessage(new ChatComponentText("Could not read file"));
             e.printStackTrace();
         }
     }
