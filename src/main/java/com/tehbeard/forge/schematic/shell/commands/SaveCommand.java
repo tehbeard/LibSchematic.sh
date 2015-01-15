@@ -61,6 +61,7 @@ public class SaveCommand extends PlayerCommand {
                 
                 IdTranslateExtension translate = new IdTranslateExtension();
                 translate.redoCache();
+//                translate.onLoad(schematic.saveSchematicToTag(), schematic);
                 schematic.addExtension(translate);
                 schematic.saveSchematic(new FileOutputStream(f));
 

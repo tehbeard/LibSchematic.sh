@@ -1,11 +1,13 @@
-.gradle
+.gradle/
 build/
 gradle/
+eclipse/
 .idea/
 lib/
 bin/
 doc/
 target/
+.gradle/gradle.log
 .settings
 *.iml
 gradlew*
