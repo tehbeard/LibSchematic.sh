@@ -1,19 +1,4 @@
 package com.tehbeard.pluginChannel.netty;
-/**
- * Copyright 2015 M. D. Ball (m.d.ball2@ncl.ac.uk)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 import com.tehbeard.forge.schematic.SchematicDataRegistry;
 import com.tehbeard.forge.schematic.shell.network.ShellPacketManager;
@@ -38,14 +23,14 @@ public class SchemPacket implements IMessageHandler<SchemPacket.SchemMessage, IM
     @Override
     public IMessage onMessage(SchemMessage message, MessageContext ctx) {
         try {
-            SchematicDataRegistry.logger().info(String.format(
+            SchematicDataRegistry.logger().debug(String.format(
                     "We've got a message! It has a length of %d, and came from the %s, sent by %s",
                     message.len, ctx.side, ctx.getServerHandler().playerEntity.getDisplayName()
             ));
             if (ctx.side.isClient()) {
                 //The client needs to pull its finger out
                 if (message.len != 0) return null;
-
+                //If we get this, we need to do some rendering
             } else {
                 //The server needs to do its stuffs
                 ShellPacketManager spm = new ShellPacketManager();
@@ -71,7 +56,7 @@ public class SchemPacket implements IMessageHandler<SchemPacket.SchemMessage, IM
         public SchemMessage(byte[] tagData) {
             tag = tagData;
             len = tagData.length;
-            SchematicDataRegistry.logger().info(String.format(
+            SchematicDataRegistry.logger().debug(String.format(
                     "New packet of length: %d", len
             ));
         }

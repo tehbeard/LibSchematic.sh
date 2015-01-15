@@ -58,13 +58,13 @@ public class PluginChannelManager {
 			        return;
 			    }
 				messages.put(part.getSubchannel(),new HashMap<Integer, Message>());
-				logger.info("Creating new subchannel [" + part.getSubchannel() + "]");
+				logger.fine("Creating new subchannel [" + part.getSubchannel() + "]");
 			}
 
 			//Create new message or add to existing message
 			if(!messages.get(part.getSubchannel()).containsKey(part.getMsgId())){
 				messages.get(part.getSubchannel()).put(part.getMsgId(), new Message(part));
-				logger.info("New message, creating container for msg " + part.getMsgId());
+				logger.fine("New message, creating container for msg " + part.getMsgId());
 			}
 			else
 			{
