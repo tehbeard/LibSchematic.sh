@@ -9,6 +9,6 @@
   "logoFile":"/mods/libschematic/libschematic.png",
   "requiredMods":["libschematic"],
   "dependencies":["libschematic"],
-  "useDependencyInformation":"true",
+  "useDependencyInformation":"true"
 }
 ]
