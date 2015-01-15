@@ -5,10 +5,10 @@
   "version": "1.0",
   "description": "Command shell to access LibSchematic.",
   "url":"tehbeard.com",
-  "authorList":["Tehbeard"],
+  "authorList":["Tehbeard", "M4Numbers"],
   "logoFile":"/mods/libschematic/libschematic.png",
   "requiredMods":["libschematic"],
   "dependencies":["libschematic"],
-  "useDependencyInformation":"true",
+  "useDependencyInformation":"true"
 }
 ]

@@ -37,7 +37,7 @@ public class PluginChannelManager {
 	/**
 	 * Add a subchannel listener.
 	 * Sub channel listeners respond to all messages on a sub channel
-	 * Sub channels 
+	 * Sub channels
 	 * @param subchannel
 	 * @param reader
 	 */
@@ -48,7 +48,7 @@ public class PluginChannelManager {
 
 	public void onPluginMessageReceived(String channel, Object player, byte[] data) {
 		try {
-		    logger.fine("Processing message");
+		    logger.info("Processing message");
 			//Get the message
 			MessagePart part = new MessagePart(data);
 
@@ -82,9 +82,9 @@ public class PluginChannelManager {
 				messages.get(part.getSubchannel()).remove(part.getMsgId());
 				MessageReader reader = listeners.get(message.getSubchannel());
 				if(reader!=null){
-				    
+
 					reader.onMessage(channel, player,message);
-					
+
 				}
 				else
 				{

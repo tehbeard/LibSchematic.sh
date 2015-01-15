@@ -1,5 +1,6 @@
 package com.tehbeard.forge.schematic.shell.render;
 
+import cpw.mods.fml.common.Mod;
 import org.lwjgl.opengl.GL11;
 
 import com.tehbeard.forge.schematic.SchVector;
@@ -12,7 +13,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.event.ForgeSubscribe;
 
 /**
  * Render a box in world
@@ -63,9 +63,6 @@ public class AABBRender {
      * Convert an bounding box relative to the player position for rendering.
      * 
      * @param bb
-     * @param playerX
-     * @param playerY
-     * @param playerZ
      * @return
      */
     private AxisAlignedBB getRenderBoundingBox(BBoxInt bb) {
@@ -77,7 +74,7 @@ public class AABBRender {
         return aabb.expand(expandBy, expandBy, expandBy).getOffsetBoundingBox(-playerX, -playerY, -playerZ);
     }
 
-    @ForgeSubscribe
+    @Mod.EventHandler
     public void renderWorldLastEvent(RenderWorldLastEvent event) {
         // determine current player location
         EntityPlayer entityPlayer = Minecraft.getMinecraft().thePlayer;
@@ -88,7 +85,7 @@ public class AABBRender {
 
         ItemStack currentItem = entityPlayer.inventory.getCurrentItem();
         if(currentItem == null){return;}
-        if(currentItem.itemID == LibSchematicShell.setSquareItem.itemID){
+        if(currentItem.isItemEqual(new ItemStack(LibSchematicShell.setSquareItem))){
             SchVector p1 = LibSchematicShell.setSquareItem.getPos1(currentItem);
             SchVector p2 = LibSchematicShell.setSquareItem.getPos2(currentItem);
 
