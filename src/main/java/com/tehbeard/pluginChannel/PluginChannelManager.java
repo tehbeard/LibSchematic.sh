@@ -1,15 +1,10 @@
 package com.tehbeard.pluginChannel;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-/**
- * TODO: Do we need this class?
- */
 public class PluginChannelManager {
 
 
@@ -53,7 +48,7 @@ public class PluginChannelManager {
 
 	public void onPluginMessageReceived(String channel, Object player, byte[] data) {
 		try {
-		    logger.fine("Processing message");
+		    logger.info("Processing message");
 			//Get the message
 			MessagePart part = new MessagePart(data);
 
@@ -63,13 +58,13 @@ public class PluginChannelManager {
 			        return;
 			    }
 				messages.put(part.getSubchannel(),new HashMap<Integer, Message>());
-				logger.fine("Creating new subchannel [" + part.getSubchannel() + "]");
+				logger.info("Creating new subchannel [" + part.getSubchannel() + "]");
 			}
 
 			//Create new message or add to existing message
 			if(!messages.get(part.getSubchannel()).containsKey(part.getMsgId())){
 				messages.get(part.getSubchannel()).put(part.getMsgId(), new Message(part));
-				logger.fine("New message, creating container for msg " + part.getMsgId());
+				logger.info("New message, creating container for msg " + part.getMsgId());
 			}
 			else
 			{

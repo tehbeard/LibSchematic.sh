@@ -10,18 +10,13 @@ import com.tehbeard.pluginChannel.Message;
 import com.tehbeard.pluginChannel.MessageReader;
 import com.tehbeard.pluginChannel.PluginChannelManager;
 
+import com.tehbeard.pluginChannel.netty.PacketHandler;
+import com.tehbeard.pluginChannel.netty.SchemPacket;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import cpw.mods.fml.common.network.IPacketHandler;
-import cpw.mods.fml.common.network.Player;
 
-/**
- * TODO: DO WE NEED THIS CLASS?
- */
-public class ShellPacketManager extends PluginChannelManager implements IPacketHandler {
+
+public class ShellPacketManager extends PluginChannelManager {
 
     public ShellPacketManager() {
         super(Logger.getLogger("minecraft"));
@@ -43,7 +38,7 @@ public class ShellPacketManager extends PluginChannelManager implements IPacketH
                             );
                     ItemStack currentItem = entityPlayer.inventory.getCurrentItem();
                     if(currentItem == null){return;}
-                    if(currentItem.itemID != LibSchematicShell.setSquareItem.itemID){return;}
+                    if(!currentItem.isItemEqual(new ItemStack(LibSchematicShell.setSquareItem))){return;}
 
                     if(min){
                         LibSchematicShell.setSquareItem.setPos1(currentItem, vector);
@@ -53,19 +48,13 @@ public class ShellPacketManager extends PluginChannelManager implements IPacketH
                         LibSchematicShell.setSquareItem.setPos2(currentItem, vector);
                     }
 
+                    PacketHandler.network.sendTo(new SchemPacket.SchemMessage(new byte[0]), entityPlayer);
 
                 }catch(Exception e){
                     e.printStackTrace();
                 }
             }
         });
-    }
-
-    @Override
-    public void onPacketData(INetworkManager manager,
-            Packet250CustomPayload packet, Player player) {
-        onPluginMessageReceived(packet.channel, player, packet.data);
-
     }
 
 }

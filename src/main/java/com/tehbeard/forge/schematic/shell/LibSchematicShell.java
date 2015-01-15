@@ -2,7 +2,6 @@ package com.tehbeard.forge.schematic.shell;
 
 import com.tehbeard.pluginChannel.netty.PacketHandler;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -25,9 +24,9 @@ public class LibSchematicShell {
     public static SetSquareItem setSquareItem;
     
     public static CreativeTabs tabLibSch = new CreativeTabs("tabLibSchematic"){
-    	 public ItemStack getIconItemStack() {
-    		 return new ItemStack(setSquareItem,1,0);
-    	 }
+        public ItemStack getIconItemStack() {
+            return new ItemStack(setSquareItem,1,0);
+        }
 
         @Override
         public Item getTabIconItem() {
@@ -41,7 +40,6 @@ public class LibSchematicShell {
         setSquareItem = (SetSquareItem) new SetSquareItem().setUnlocalizedName("protractor")
                 .setTextureName(String.format("%s:setsquare", Reference.MODID))
                 .setCreativeTab(tabLibSch);
-        GameRegistry.registerItem(setSquareItem, "protractor");
     }
     
     //public static final 
